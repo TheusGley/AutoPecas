@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:autopecas/def/bd_con.dart';
 import 'package:flutter/material.dart';
@@ -7,31 +7,31 @@ import 'package:flutter/services.dart';
 import 'homePage.dart';
 
 class ColaboradoresPage extends StatefulWidget {
-   ColaboradoresPage({super.key});
+   const ColaboradoresPage({super.key});
 
   @override
   State<ColaboradoresPage> createState() => _ColaboradoresPageState();
 }
 
 class _ColaboradoresPageState extends State<ColaboradoresPage> {
-   TextEditingController _controllerNome = TextEditingController();
+   final TextEditingController _controllerNome = TextEditingController();
 
-   TextEditingController _controllerCpf  = TextEditingController();
+   final TextEditingController _controllerCpf  = TextEditingController();
 
-   TextEditingController _controllerEmail = TextEditingController();
+   final TextEditingController _controllerEmail = TextEditingController();
 
-   TextEditingController _controllerTelefone = TextEditingController();
+   final TextEditingController _controllerTelefone = TextEditingController();
 
-   TextEditingController _controllerLogin = TextEditingController();
+   final TextEditingController _controllerLogin = TextEditingController();
 
-   TextEditingController _controllerSenha = TextEditingController();
+   final TextEditingController _controllerSenha = TextEditingController();
 
-   TextEditingController _controllerConfirm = TextEditingController();
+   final TextEditingController _controllerConfirm = TextEditingController();
 
-   TextEditingController _controllerUsuario = TextEditingController();
+   final TextEditingController _controllerUsuario = TextEditingController();
 
 
-   GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+   final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
 
    bool _obscureText = true;
 
@@ -40,11 +40,11 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
 
    Future<void> _insert (String table , String nome , String cpf,String email, String tel,String login , String pass) async {
 
-     int cpf_format = int.parse(cpf);
-     int tel_format = int.parse(tel);
+     int cpfFormat = int.parse(cpf);
+     int telFormat = int.parse(tel);
 
      Bd_con conn = Bd_con();
-     conn.cadColaboradores(table, nome, cpf_format, email, tel_format, login, pass);
+     conn.cadColaboradores(table, nome, cpfFormat, email, telFormat, login, pass);
    }
 
    @override
@@ -69,8 +69,8 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                       ),
                     ),
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                      child: const Text(
                         "Cadastre o Colaborador",
                         style: TextStyle(
                           color: Colors.white,
@@ -83,7 +83,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -102,12 +102,12 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                     ],
                     keyboardType: TextInputType.name,
                     controller: _controllerNome,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Nome ",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -116,7 +116,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -154,10 +154,10 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                     decoration: InputDecoration(
                       errorText: _errorName,
                       labelText: " Cpf ",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -166,7 +166,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -180,12 +180,12 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                   child: TextFormField(
                     controller: _controllerEmail,
                     keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Email",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -194,7 +194,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -208,12 +208,12 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                   child: TextFormField(
                     controller: _controllerTelefone,
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Telefone",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -222,7 +222,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -241,12 +241,12 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                     ],
                     keyboardType: TextInputType.name,
                     controller: _controllerUsuario,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Usuario ",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -255,7 +255,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -273,7 +273,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                     decoration: InputDecoration(
                       errorText: _errorText,
                       labelText: " Senha",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                         suffixIcon: IconButton(
                             icon: Icon(
@@ -287,7 +287,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                               });
                             }),
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -296,7 +296,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -310,7 +310,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                   child: TextFormField(
                     obscureText: _obscureText,
                     controller: _controllerConfirm,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -318,7 +318,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                     decoration: InputDecoration(
                       errorText: _errorText,
                       labelText: " Confirme a Senha",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                       suffixIcon: IconButton(
                           icon: Icon(
@@ -356,7 +356,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                HomePage(), // Substitua com o widget da nova página
+                                const HomePage(), // Substitua com o widget da nova página
                           ),
                         );
                       }
@@ -371,7 +371,7 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
                       });
                     }
                   } ,
-                  child: Text("Cadastrar",
+                  child: const Text("Cadastrar",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -390,20 +390,20 @@ class _ColaboradoresPageState extends State<ColaboradoresPage> {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Ocorreu um erro' + e.toString(),
-          style: TextStyle(
+        title: Text('Ocorreu um erro$e',
+          style: const TextStyle(
             color: Colors.lightBlueAccent,
           ),),
-        content: Text(
+        content: const Text(
             "Por favor tente novamente mais tarde "),
         actions: <Widget>[
           TextButton(
-            child: Text('Ok'),
+            child: const Text('Ok'),
             onPressed: ()  {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ),
               );
             },

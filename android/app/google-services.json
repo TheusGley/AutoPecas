@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "142468233766",
+    "project_id": "autopecas-d1c3c",
+    "storage_bucket": "autopecas-d1c3c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142468233766:android:257889fd863407a4f9c4e7",
+        "android_client_info": {
+          "package_name": "com.example.autopecas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142468233766-3f5ndte2jiu1tmj2978983jpjp6f09o7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxm0NHCOE6hTSjx9ds2ZhPs5Z4PKyPJm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142468233766-3f5ndte2jiu1tmj2978983jpjp6f09o7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

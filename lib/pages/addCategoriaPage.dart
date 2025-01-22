@@ -13,9 +13,9 @@ class addCategoriaPage extends StatefulWidget {
 
 class _addCategoriaPageState extends State<addCategoriaPage> {
 
-  TextEditingController _controllerNome = TextEditingController();
+  final TextEditingController _controllerNome = TextEditingController();
 
-  GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
 
   Future<void> _cadCategoria (String nome) async {
 
@@ -50,8 +50,8 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
                       ),
                     ),
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                      child: const Text(
                         "Cadastre a categoria",
                         style: TextStyle(
                           color: Colors.white,
@@ -64,7 +64,7 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -79,12 +79,12 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     controller: _controllerNome,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Nome ",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -97,7 +97,7 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor:  Colors.indigo,
-                    fixedSize: Size(200, 50),
+                    fixedSize: const Size(200, 50),
                   ),
                   onPressed: () {
 
@@ -108,7 +108,7 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              HomePage(), // Substitua com o widget da nova página
+                              const HomePage(), // Substitua com o widget da nova página
                         ),
                       );
                     }
@@ -117,7 +117,7 @@ class _addCategoriaPageState extends State<addCategoriaPage> {
 
                     }
                   },
-                  child: Text("Enviar",
+                  child: const Text("Enviar",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -136,20 +136,20 @@ void showCancel(BuildContext context, Object e ) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Ocorreu um erro  ' + e.toString(),
-          style: TextStyle(
+        title: Text('Ocorreu um erro  $e',
+          style: const TextStyle(
             color: Colors.lightBlueAccent,
           ),),
-        content: Text(
+        content: const Text(
             "Por favor tente novamente mais tarde "),
         actions: <Widget>[
           TextButton(
-            child: Text('Ok'),
+            child: const Text('Ok'),
             onPressed: ()  {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ),
               );
             },

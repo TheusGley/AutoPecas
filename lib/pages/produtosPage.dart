@@ -13,26 +13,26 @@ class ProdutosPage extends StatefulWidget {
 
 class _ProdutosPageState extends State<ProdutosPage> {
 
-  TextEditingController _controllerDescricao = TextEditingController();
+  final TextEditingController _controllerDescricao = TextEditingController();
 
-  TextEditingController _controllerPrecoCusto= TextEditingController();
+  final TextEditingController _controllerPrecoCusto= TextEditingController();
 
-  TextEditingController _controllerPrecoVenda= TextEditingController();
+  final TextEditingController _controllerPrecoVenda= TextEditingController();
 
-  TextEditingController _controllerEstoque= TextEditingController();
+  final TextEditingController _controllerEstoque= TextEditingController();
 
   late List<String> _categorias = [' '];
   late List<String> _fornecedor = [' '];
   late String _selectedCategorias = _categorias.first;
   late String _selectedFornecedor  = _fornecedor.first;
-  late Map<String,dynamic> _produtos  = {};
+  late final Map<String,dynamic> _produtos  = {};
   late String error_message ;
   List<String> InitialValue = [' '];
 
 
 
 
-  GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey  = GlobalKey<FormState>();
 
 
   @override
@@ -79,16 +79,16 @@ class _ProdutosPageState extends State<ProdutosPage> {
 
 
 
-  Future<bool> _cadProdutos (String descricao, String preco_custo , String preco_venda, String estoque_atual , String id_categoria , String id_fornecedo, ) async {
+  Future<bool> _cadProdutos (String descricao, String precoCusto , String precoVenda, String estoqueAtual , String idCategoria , String idFornecedo, ) async {
 
-    int  estoque_format = int.parse(estoque_atual);
-    double preco_custo_format = double.parse(preco_custo);
-    double preco_venda_format = double.parse(preco_venda);
+    int  estoqueFormat = int.parse(estoqueAtual);
+    double precoCustoFormat = double.parse(precoCusto);
+    double precoVendaFormat = double.parse(precoVenda);
 
-    List<String> parts = id_categoria.split('-').map((e) => e.trim()).toList();
-    String idCategoria = parts[0];
+    // List<String> parts = idCategoria.split('-').map((e) => e.trim()).toList();
+    // String idCategoria = parts[0];
 
-    List<String> partsFornecedor = id_fornecedo.split('-').map((e) => e.trim()).toList();
+    List<String> partsFornecedor = idFornecedo.split('-').map((e) => e.trim()).toList();
     String idFornecedor = partsFornecedor[0];
     print(idCategoria + idFornecedor);
 
@@ -98,9 +98,9 @@ class _ProdutosPageState extends State<ProdutosPage> {
       conn.cadastroProduto(
           "produto",
           descricao,
-          preco_custo_format,
-          preco_venda_format,
-          estoque_format,
+          precoCustoFormat,
+          precoVendaFormat,
+          estoqueFormat,
           idFornecedor,
           idCategoria
       );
@@ -143,8 +143,8 @@ class _ProdutosPageState extends State<ProdutosPage> {
                       ),
                     ),
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-                      child: Text(
+                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+                      child: const Text(
                         "Cadastre de Produto",
                         style: TextStyle(
                           color: Colors.white,
@@ -157,7 +157,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -176,12 +176,12 @@ class _ProdutosPageState extends State<ProdutosPage> {
                     ],
                     keyboardType: TextInputType.name,
                     controller: _controllerDescricao,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: " Descrição ",
                       labelStyle: TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -190,7 +190,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -208,10 +208,10 @@ class _ProdutosPageState extends State<ProdutosPage> {
                     decoration: InputDecoration(
                       errorText: _errorName,
                       labelText: "Valor de Custo",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -220,7 +220,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -238,10 +238,10 @@ class _ProdutosPageState extends State<ProdutosPage> {
                     decoration: InputDecoration(
                       errorText: _errorName,
                       labelText: " Valor de Venda",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -250,7 +250,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
                   width: 280,
                   decoration: BoxDecoration(
@@ -268,10 +268,10 @@ class _ProdutosPageState extends State<ProdutosPage> {
                     decoration: InputDecoration(
                       errorText: _errorName,
                       labelText: "Quantidade no estoque",
-                      labelStyle: TextStyle(color: Colors.black),
+                      labelStyle: const TextStyle(color: Colors.black),
                       border: null,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
@@ -279,7 +279,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(top:20)),
+              const Padding(padding: EdgeInsets.only(top:20)),
               DropdownMenu<String>(
                 initialSelection: InitialValue.first,
                 onSelected: (String? newValue) {
@@ -291,7 +291,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 width: 280,
                 menuHeight: 400,
                 // menuStyle: MenuStyle(),
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -302,7 +302,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                       value: value, label: value);
                 }).toList(),
               ),
-              Padding(padding: EdgeInsets.only(top:20)),
+              const Padding(padding: EdgeInsets.only(top:20)),
               DropdownMenu<String>(
                 initialSelection:InitialValue.first,
                 onSelected: (String? newValue) {
@@ -314,7 +314,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 width: 280,
                 menuHeight: 400,
                 // menuStyle: MenuStyle(),
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -330,7 +330,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor:  Colors.indigo,
-                    fixedSize: Size(200, 50),
+                    fixedSize: const Size(200, 50),
                   ),
                   onPressed: () {
                     try {
@@ -345,7 +345,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              HomePage(), // Substitua com o widget da nova página
+                              const HomePage(), // Substitua com o widget da nova página
                         ),
                       );
                     }
@@ -354,7 +354,7 @@ class _ProdutosPageState extends State<ProdutosPage> {
 
                     }
                   },
-                  child: Text("Enviar",
+                  child: const Text("Enviar",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -373,15 +373,15 @@ class _ProdutosPageState extends State<ProdutosPage> {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Ocorreu um erro' + e.toString(),
-          style: TextStyle(
+        title: Text('Ocorreu um erro$e',
+          style: const TextStyle(
             color: Colors.lightBlueAccent,
           ),),
-        content: Text(
+        content: const Text(
             "Por favor tente novamente mais tarde "),
         actions: <Widget>[
           TextButton(
-            child: Text('Ok'),
+            child: const Text('Ok'),
             onPressed: ()  {
               Navigator.pop(context);
             },

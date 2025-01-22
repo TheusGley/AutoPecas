@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
@@ -6,9 +5,9 @@ import '../tiles/drawertiles.dart';
 
 class CustomDrawer extends StatefulWidget {
 
-    late final PageController pageController ;
+     final PageController pageController ;
 
-    CustomDrawer(this.pageController);
+    const CustomDrawer(this.pageController, {super.key});
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -33,22 +32,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
 @override
   Widget build(BuildContext context) {
-    Widget _buildDrawer() => Container(
+    Widget buildDrawer() => Container(
           width: 400,
-          decoration: BoxDecoration(color: Colors.indigo),
+          decoration: const BoxDecoration(color: Colors.indigo),
         );
     return Drawer(
       child: Stack(
         children: [
-          _buildDrawer(),
+          buildDrawer(),
           ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(left:10, bottom: 10),
+                margin: const EdgeInsets.only(left:10, bottom: 10),
                 height: 170,
                 child: Stack(
                   children: [
-                    Positioned(
+                    const Positioned(
                         top: 20.0,
                         left: 0.0,
                         child: Text(
@@ -100,7 +99,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                         )
                                       ),
                                       child:
-                                  Icon(Icons.person,size: 40,)
+                                  const Icon(Icons.person,size: 40,)
                                   ),
                                 ),
                                /* Padding(
@@ -120,11 +119,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ],
                 ),
               ),
-              Divider(color: Colors.indigo,),
+              const Divider(color: Colors.indigo,),
               Column(
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       child:
                       Column(
                       children : [
@@ -137,7 +136,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       DrawerTiles(Icons.list_alt_rounded, "Categorias",widget.pageController,6),
                       DrawerTiles(Icons.update, "Atualizar",widget.pageController,8),
                         DrawerTiles(Icons.delete, "Delete",widget.pageController,9),
-                        SizedBox(height: 150,),
+                        const SizedBox(height: 150,),
                        /* ElevatedButton(
                             onPressed: (){_logout();},
                             style: ElevatedButton.styleFrom(
@@ -152,7 +151,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600
                               ),)),*/
-                        SizedBox(height: 40,),
+                        const SizedBox(height: 40,),
 
                         ]
                   )

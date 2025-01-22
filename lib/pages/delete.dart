@@ -11,7 +11,7 @@ class DeletePage extends StatefulWidget {
 }
 
 class _deleteItem extends State<DeletePage> {
-  late List<String> _tabelas = ['produto', 'fornecedor', 'cliente', 'vendedor'];
+  late final List<String> _tabelas = ['produto', 'fornecedor', 'cliente', 'vendedor'];
   late List<String> _itens = [' '];
   List<String> InitialValue = [' '];
 
@@ -26,7 +26,7 @@ class _deleteItem extends State<DeletePage> {
   }
 
   Future<bool> _getData() async {
-    await Future.delayed(Duration(seconds: 5)); // Simulando uma demora
+    await Future.delayed(const Duration(seconds: 5)); // Simulando uma demora
     return true;
   }
 
@@ -55,10 +55,10 @@ class _deleteItem extends State<DeletePage> {
     return true;
   }
 
-  Future<bool> _delete(String tabela, String item_id) async{
+  Future<bool> _delete(String tabela, String itemId) async{
     Bd_con conn = Bd_con();
   try{
-    await conn.delete(tabela, item_id);
+    await conn.delete(tabela, itemId);
     return true;
 
   }
@@ -78,7 +78,7 @@ class _deleteItem extends State<DeletePage> {
       child: Center(
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20),
               child: Text(
                 "Escolha a Tabela",
@@ -100,7 +100,7 @@ class _deleteItem extends State<DeletePage> {
               },
               width: 230,
               menuHeight: 400,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -114,19 +114,19 @@ class _deleteItem extends State<DeletePage> {
               future: _futureData,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Padding(
+                  return const Padding(
                     padding: EdgeInsets.only(top: 200.0),
                     child: CircularProgressIndicator(),
                   );
                 }
                 if (snapshot.hasError) {
-                  return Text("Erro ao buscar dados");
+                  return const Text("Erro ao buscar dados");
                 }
                 if (_itens.isNotEmpty) {
                   return Column(
 
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 20, bottom: 20),
                         child: Text(
                           "Escolha o item que deseja deletar",
@@ -149,7 +149,7 @@ class _deleteItem extends State<DeletePage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomePage() // Substitua com o widget da nova página
+                                  builder: (context) => const HomePage() // Substitua com o widget da nova página
                                 ),
                               );
                             }else{
@@ -158,7 +158,7 @@ class _deleteItem extends State<DeletePage> {
                             }
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
@@ -169,7 +169,7 @@ class _deleteItem extends State<DeletePage> {
                                 children: [
                                   Text(
                                     _itens[index],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -183,14 +183,14 @@ class _deleteItem extends State<DeletePage> {
                   );
                 } else {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.indigo,
                       ),
-                      child: Text("Nenhum Produto encontrado"),
+                      child: const Text("Nenhum Produto encontrado"),
                     ),
                   );
                 }

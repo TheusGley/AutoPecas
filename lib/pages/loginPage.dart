@@ -1,11 +1,12 @@
+
+
 import 'package:autopecas/def/bd_con.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'homePage.dart';
 
 
 class loginPage extends StatefulWidget {
-   loginPage({super.key});
+   const loginPage({super.key});
 
   @override
   State<loginPage> createState() => _loginPageState();
@@ -15,90 +16,49 @@ class _loginPageState extends State<loginPage> {
   bool _obscureText = true;
   Bd_con conn = Bd_con();
 
-  List<Map<String, String>> _users = [];
+  final List<Map<String, String>> _users = [];
 
 
-  TextEditingController _controllerUsuario = TextEditingController();
-  TextEditingController _controllerSenha = TextEditingController();
+  final TextEditingController _controllerUsuario = TextEditingController();
+  final TextEditingController _controllerSenha = TextEditingController();
 
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    userLogin();
 
-  }
+  Future<bool> userLogin(email, password) async {
 
+    final bool produtoResponse = await conn.authentication(email, password);
 
-  Future<void> userLogin() async {
-    _users = [];
-
-    final List<List<dynamic>> produtoResponse = await conn.authentication();
-
-    if (produtoResponse.isEmpty) {
+    if (produtoResponse==false) {
       print("Nenhum usuário encontrado.");
-      return;
+      return produtoResponse;
     }
-
-    // Preenche a lista de usuários com nome e senha
-    for (var row in produtoResponse) {
-      _users.add({'usuario': row[0], 'senha': row[1]}); // row[0] = usuário, row[1] = senha
+    else {
+      return produtoResponse;
     }
-
-    print("Usuários encontrados: $_users");
-  }
-
-  Future<bool> _login(String usuario, String senha) async {
-
-    // Verifica se o usuário e a senha estão corretos
-    for (var user in _users) {
-      if (user['usuario'] == usuario && user['senha'] == senha) {
-        print (usuario);
-        print (senha);
-
-        return true; // Login bem-sucedido
-      }
-    }
-
-    return false; // Login falhou
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title:
-        Row(
-          children: [
-            Padding(padding: EdgeInsets.only(left: 100)),
-            Text('Auto',style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600
-            ),),
-            Text('Sport',style: TextStyle(
-                color: Colors.blue,
-                fontWeight: FontWeight.w600
-            ),)
-          ],
-
-        ),
-      ),
-      body:_LoginPage(context),
-    );
-
-
-  }
-
-  Widget _LoginPage(context) {
-    return
-      Material(
+    return Flexible(
+      child: 
+           Material(
         color: Colors.black,
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Container(
+                child:
+                Text(
+                  "AutoPeças",
+                  style: TextStyle(
+                    color: Colors.teal[200],
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.only(top: 30, bottom: 40),
+                padding: const EdgeInsets.only(top: 30, bottom: 40),
                 child: Container(
                   width: 300,
                     decoration: BoxDecoration(
@@ -109,7 +69,7 @@ class _loginPageState extends State<loginPage> {
                         width: 1,
                       ),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: SizedBox(
                         child: Icon(Icons.person, size: 200),
                       ),
@@ -137,12 +97,12 @@ class _loginPageState extends State<loginPage> {
                         padding: const EdgeInsets.all(20.0),
                         child: TextField(
                           controller: _controllerUsuario,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: "Email ou Usuario",
                             labelStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),
@@ -150,20 +110,20 @@ class _loginPageState extends State<loginPage> {
                         ),
                       ),
                       Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child:
                           TextField(
                             obscureText: _obscureText,
                             controller: _controllerSenha,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                             ),
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                               labelText: "Senha ",
-                              labelStyle: TextStyle(color: Colors.black),
-                              border: OutlineInputBorder(),
+                              labelStyle: const TextStyle(color: Colors.black),
+                              border: const OutlineInputBorder(),
                               suffixIcon: IconButton(
                                   icon: Icon(
                                     _obscureText
@@ -184,12 +144,13 @@ class _loginPageState extends State<loginPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top:20.0, left: 20.0, right: 20.0, bottom: 35.0),
+                padding: const EdgeInsets.only(top:20.0, left: 20.0, right: 20.0, bottom: 35.0),
                 child: ElevatedButton(onPressed: () async {
-                  bool loginSuccess = await _login(_controllerUsuario.text, _controllerSenha.text);
-                  if (loginSuccess ) {
+
+                  bool loginSuccess = await userLogin(_controllerUsuario.text, _controllerSenha.text);
+                  if (loginSuccess == true) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage())
+                        MaterialPageRoute(builder: (context) => const HomePage())
                     );
                   }
                   else {
@@ -198,9 +159,9 @@ class _loginPageState extends State<loginPage> {
                 },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
                   ),
-                  child: Text(
+                  child: const Text(
                       "Entrar", style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w400,
@@ -229,24 +190,26 @@ class _loginPageState extends State<loginPage> {
             ],
           ),
         ),
-      );
+      )
+    );  
   }
 }
+
 
 void showCancel(BuildContext context, ) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Ocorreu um erro' ,
+        title: const Text('Ocorreu um erro' ,
           style: TextStyle(
             color: Colors.lightBlueAccent,
           ),),
-        content: Text(
+        content: const Text(
             "Por favor verifique as credenciais!"),
         actions: <Widget>[
           TextButton(
-            child: Text('Ok'),
+            child: const Text('Ok'),
             onPressed: ()  {
               Navigator.of(context).pop();
             },

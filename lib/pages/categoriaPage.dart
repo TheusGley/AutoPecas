@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:autopecas/def/bd_con.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class categoriaPage extends StatefulWidget {
-   categoriaPage({super.key});
+   const categoriaPage({super.key});
 
   @override
   State<categoriaPage> createState() => _categoriaPageState();
@@ -26,91 +27,98 @@ class _categoriaPageState extends State<categoriaPage> {
      _futureData =_getData();
    }
 
-   Future<bool> _getData() async {
-     Bd_con connect = Bd_con();
-     print("Iniciando requisição ao banco...");
+  Future<bool> _getData() async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    
+    try{
+      QuerySnapshot querySnapshot  = await firestore.collection('categoria').get(); 
+     
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+          print("Nome: ${doc.id}, Dados: ${doc.data()}");
+          
+            setState(() {
+            _categorias.add(doc.id);
+            });
+    }
 
-     final List<List<dynamic>> response = await connect.select_all('*', 'categoria');
-     List<String> formattedResponse = [];
+  
+      // Obtém os dados do documento
 
-     // Formatando a resposta para remover as chaves
-     for (var row in response) {
-       formattedResponse.add("${row[0]} - ${row[1]}");
-     }
-
-     print("Resposta formatada: $formattedResponse");
-
-     setState(() {
-       _categorias = formattedResponse; // Agora contém as strings formatadas
-     });
-
-     if (formattedResponse.isNotEmpty) {
-       print("Dados recebidos com sucesso!");
-       return true;
-     } else {
-       print("Nenhum dado encontrado.");
-       return false;
-     }
-   }
+    return true;
+  } catch (e) {
+    print("Erro ao carregar dados: $e");
+    return false;
+  }
+}
 
 
-   Future<bool> _getProdutos(String newValue) async{
-     Bd_con connect = Bd_con();
 
-     List<String> parts = newValue.split('-').map((e) => e.trim()).toList();
 
-     String idCategoria = parts[0];
-     print(idCategoria);
+   Future<bool> _getProdutos (String newValue) async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    DocumentReference categoriaRef = firestore.doc('categoria/$newValue');
+      try{
+            QuerySnapshot querySnapshot = await firestore
+        .collection('produto')
+        .where('categoria', isEqualTo: categoriaRef)
+        .get();
+          setState(() {
+                _produtos = {};
+                });
+    
+          for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+              var produtoData = doc.data() as Map<String, dynamic>;
 
-       _produtos = {};
+        // Cria um mapa para armazenar quantidade, preco_venda e preco_custo
+        var produtoInfo = {
+          'quantidade': produtoData['estoque'],
+          'preco_venda': produtoData['preco_venda'],
+          'preco_custo': produtoData['preco_custo'],
+        };
+        print(produtoInfo);         
+        // Atualiza o estado com os produtos encontrados
+        setState(() {
+          _produtos[doc.id] = produtoInfo;
+        });
+      }
+      return true;
+    }  catch (e) {
+    print("Erro ao buscar documentos filtrados: $e");
+    return false; // Retorna falha em caso de erro
+  } finally {
+    // Atualiza o Future com sucesso ou erro
+    setState(() {
+      _futureData = Future.value(true);
+    });
+  }
+}
 
-       final List<List<dynamic>> produtoResponse = await connect.select('descricao, preco_venda', 'produto', 'id_categoria', idCategoria);
 
-       if (produtoResponse.isEmpty) {
-         print("Nenhuma categoria encontrada.");
-         return false;
-       }
-
-       // Preenche o mapa _produtos
-       for (var row in produtoResponse) {
-         _produtos[row[0]] = row[1]; // Assume que row[0] é a descrição e row[1] o preço
-       }
-
-       print("Produtos carregados: $_produtos");
-
-     setState(() {
-       _futureData = Future.value(true);
-     });
-
-     return true;
-     }
    @override
   Widget build(BuildContext context) {
     return Container(
       child: Center(
         child: Column(
           children: [
-           Padding(padding: EdgeInsets.only(top:20, bottom: 20),
-           child: Text("Categorias",style: TextStyle(
-             fontSize: 28,
-             color: Colors.white,
-             fontStyle: FontStyle.italic,
-             fontWeight: FontWeight.w700,
+          const Padding(padding: EdgeInsets.only(top:20, bottom: 20),
+          child: Text("Categorias",style: TextStyle(
+            fontSize: 28,
+            color: Colors.white,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w700,
            ),),),
             DropdownMenu<String>(
               initialSelection: InitialValue.first,
               onSelected: (String? newValue) {
-                // This is called when the user selects an item.
                 setState(() {
                   _selectedValue = newValue!;
                 });
-
                 _getProdutos(newValue!);
               },
               width: 230,
               menuHeight: 400,
               // menuStyle: MenuStyle(),
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -126,7 +134,7 @@ class _categoriaPageState extends State<categoriaPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Exibir indicador de carregamento enquanto a conexão é estabelecida
-                  return Padding(
+                  return const Padding(
                     padding: EdgeInsets.only(top: 200.0),
                     child: CircularProgressIndicator(),
                   );
@@ -134,10 +142,10 @@ class _categoriaPageState extends State<categoriaPage> {
 
                 if (snapshot.hasError) {
                   // Se houve um erro na consulta, exibir uma mensagem de erro
-                  return Text("Erro ao buscar dados");
+                  return const Text("Erro ao buscar dados");
                 }
 
-                if (_produtos != null && _produtos.isNotEmpty) {
+                if (_produtos.isNotEmpty) {
                   // Exibir os produtos quando a conexão for bem-sucedida
                   return Column(
                     children: [
@@ -147,7 +155,7 @@ class _categoriaPageState extends State<categoriaPage> {
                             // Código para navegação ou ações no clique
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
@@ -161,15 +169,15 @@ class _categoriaPageState extends State<categoriaPage> {
                                     children: [
                                       Text(_produtos.keys.elementAt(index).toString(), // Nome do produto
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      SizedBox(width: 20),
+                                      const SizedBox(width: 20),
                                       Text(_produtos.values.elementAt(index).toString(),
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -186,14 +194,14 @@ class _categoriaPageState extends State<categoriaPage> {
                 } else {
                   // Caso nenhum dado seja encontrado
                   return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                       child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.indigo,
                       ),
-                    child: SizedBox(
+                    child: const SizedBox(
                       child: Text("Nenhum Produto encontrado"),
                     ),
                   ),

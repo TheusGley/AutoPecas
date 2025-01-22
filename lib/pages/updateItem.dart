@@ -10,7 +10,7 @@ class UpdateItem extends StatefulWidget {
 }
 
 class _UpdateItemState extends State<UpdateItem> {
-  late List<String> _tabelas = ['produto', 'fornecedor', 'cliente', 'vendedor'];
+  late final List<String> _tabelas = ['produto', 'fornecedor', 'cliente', 'vendedor'];
   late List<String> _itens = [' '];
   List<String> InitialValue = [' '];
 
@@ -25,7 +25,7 @@ class _UpdateItemState extends State<UpdateItem> {
   }
 
   Future<bool> _getData() async {
-    await Future.delayed(Duration(seconds: 5)); // Simulando uma demora
+    await Future.delayed(const Duration(seconds: 5)); // Simulando uma demora
     return true;
   }
 
@@ -60,7 +60,7 @@ class _UpdateItemState extends State<UpdateItem> {
       child: Center(
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20),
               child: Text(
                 "Escolha o tipo do item",
@@ -82,7 +82,7 @@ class _UpdateItemState extends State<UpdateItem> {
               },
               width: 230,
               menuHeight: 400,
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -96,14 +96,14 @@ class _UpdateItemState extends State<UpdateItem> {
               future: _futureData,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Padding(
+                  return const Padding(
                     padding: EdgeInsets.only(top: 200.0),
                     child: CircularProgressIndicator(),
                   );
                 }
 
                 if (snapshot.hasError) {
-                  return Text("Erro ao buscar dados");
+                  return const Text("Erro ao buscar dados");
                 }
 
                 if (_itens.isNotEmpty) {
@@ -127,7 +127,7 @@ class _UpdateItemState extends State<UpdateItem> {
                             );
                           },
                           child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                             child: Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
@@ -138,7 +138,7 @@ class _UpdateItemState extends State<UpdateItem> {
                                 children: [
                                   Text(
                                     _itens[index],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -152,14 +152,14 @@ class _UpdateItemState extends State<UpdateItem> {
                   );
                 } else {
                   return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.indigo,
                       ),
-                      child: Text("Nenhum Produto encontrado"),
+                      child: const Text("Nenhum Produto encontrado"),
                     ),
                   );
                 }

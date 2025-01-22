@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   Future<bool> _getData() async {
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     return true;
   }
 
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             switch (snapshot.connectionState) {
               case ConnectionState.none:
               case ConnectionState.waiting:
-                return Padding(
+                return const Padding(
                   padding: EdgeInsets.only(top: 16),
                   child: Center(
                     child: Text(
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               default :
                 if (snapshot.hasError) {
                   print(snapshot.error);
-                  return Center(
+                  return const Center(
                     child: Text(
                       "Erro ao Carregar Dados",
                       style: TextStyle(
@@ -79,14 +79,14 @@ PageController _pageController = PageController();
 Widget _homePage(BuildContext context){
     return PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           Scaffold(
             appBar:AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
               backgroundColor: Colors.black,
               title:
-              Row(
+              const Row(
                 children: [
                   Padding(padding: EdgeInsets.only(left: 100)),
                   Text('Auto',style: TextStyle(
@@ -102,14 +102,14 @@ Widget _homePage(BuildContext context){
               ),
             ),
             backgroundColor: Colors.black,
-            body: categoriaPage(),
+            body: const categoriaPage(),
             drawer: CustomDrawer(_pageController),
           ),
           Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -126,13 +126,13 @@ Widget _homePage(BuildContext context){
               ),
               drawer: CustomDrawer(_pageController),
               backgroundColor: Colors.black,
-              body: ColaboradoresPage(),
+              body: const ColaboradoresPage(),
           ), // segunda Page
           Scaffold(
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -151,7 +151,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                   child:
-                  ClientePage()
+                  const ClientePage()
 
               )
           ),//terceira page
@@ -159,7 +159,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -178,7 +178,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                   child:
-                  ProdutosPage()
+                  const ProdutosPage()
 
               )
           ),//quarta PAge
@@ -186,7 +186,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -205,7 +205,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                   child:
-                  Fornecedorpage()
+                  const Fornecedorpage()
 
               )
           ),//quinta page
@@ -213,7 +213,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -232,7 +232,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                   child:
-                  VendasPage()
+                  const VendasPage()
 
               )
           ),
@@ -240,7 +240,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -258,7 +258,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                 child:
-                addCategoriaPage(),
+                const addCategoriaPage(),
 
               )
           ),
@@ -266,7 +266,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -285,7 +285,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                   child:
-                  VendasPage(),
+                  const VendasPage(),
 
               )
           ),
@@ -293,7 +293,7 @@ Widget _homePage(BuildContext context){
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -314,13 +314,13 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                 child:
-                UpdateItem(),
+                const UpdateItem(),
               )
           ),          Scaffold(
               appBar:AppBar(
                 backgroundColor: Colors.black,
                 title:
-                Row(
+                const Row(
                   children: [
                     Padding(padding: EdgeInsets.only(left: 100)),
                     Text('Auto',style: TextStyle(
@@ -341,7 +341,7 @@ Widget _homePage(BuildContext context){
               body:
               Container(
                 child:
-                DeletePage(),
+                const DeletePage(),
               )
           )
 

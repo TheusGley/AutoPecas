@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:autopecas/pages/loginPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-
-void main() {
+void main() async {
   runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform, // Use o arquivo de configurações gerado
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,11 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  loginPage(),
+      home:  const loginPage(),
     );
   }
 }
